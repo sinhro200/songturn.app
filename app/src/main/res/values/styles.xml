@@ -1,0 +1,192 @@
+<resources xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <style name="AppThemeLight" parent="MaterialDrawerTheme">
+
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="android:colorBackground">@color/colorWhite</item>
+
+<!--        <color name="drawerHeaderColor">?attr/colorAccent</color>-->
+
+        <item name="popupTheme">@style/actionMenu</item>
+
+        <!-- MaterialDrawer specific values -->
+        <item name="material_drawer_background">@color/material_drawer_background</item>
+<!--        <item name="material_drawer_primary_text">@color/material_drawer_primary_text</item>-->
+        <item name="material_drawer_primary_text">@color/colorAccent</item>
+        <item name="material_drawer_primary_icon">@color/material_drawer_primary_icon</item>
+        <item name="material_drawer_secondary_text">@color/material_drawer_secondary_text</item>
+        <item name="material_drawer_hint_text">@color/material_drawer_hint_text</item>
+        <item name="material_drawer_divider">@color/material_drawer_divider</item>
+        <item name="material_drawer_selected">@color/material_drawer_selected
+        </item> <!-- Material 2 defines 12% alpha, primary color -->
+        <item name="material_drawer_selected_legacy">@color/material_drawer_selected
+        </item> <!-- Defines the color if legacy style (Material 1, is enabled) -->
+        <item name="material_drawer_selected_text">@color/material_drawer_selected_text</item>
+        <item name="material_drawer_header_selection_text">
+            @color/material_drawer_header_selection_text
+        </item>
+        <item name="material_drawer_header_selection_subtext">
+            @color/material_drawer_dark_header_selection_subtext
+        </item>
+        <item name="material_drawer_legacy_style">false
+        </item> <!-- Enables legacy Material 1 style -->
+    </style>
+
+    <style name="AppThemeDark" parent="MaterialDrawerTheme.Light">
+        <!--    TODO dark theme-->
+    </style>
+
+    <style name="TextFieldBoxesStyle">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginStart">@dimen/horizontal_margin</item>
+        <item name="android:layout_marginEnd">@dimen/horizontal_margin</item>
+        <item name="primaryColor">@color/colorDark</item>
+        <item name="secondaryColor">@color/colorDarkWhiter</item>
+        <item name="errorColor">@color/colorError</item>
+        <item name="helperTextColor">@color/colorGray</item>
+    </style>
+
+    <style name="TextFieldBoxesExtendedEditTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@color/colorDark</item>
+        <item name="android:textSize">@dimen/normalText</item>
+        <item name="android:textColorHint">@color/colorDarkWhiter</item>
+        <!--        <item name="app:prefixTextColor">@color/colorWhite</item>-->
+
+    </style>
+
+    <style name="AppExtendedErrorDialogTheme" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="android:background">@color/colorError</item>
+    </style>
+
+    <style name="AppThemeToggle" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <item name="android:textColorPrimary">@color/colorWhite</item>
+<!--        toggle on color-->
+        <item name="colorAccent">@color/colorAccent</item>
+<!--        toggle off color -->
+        <item name="android:colorControlNormal">@color/colorPrimaryDark</item>
+<!--        button highlight-->
+        <item name="android:colorControlHighlight">@color/colorDarkWhiter</item>
+<!--        background button-->
+        <item name="android:colorButtonNormal">@color/colorPrimary</item>
+    </style>
+
+    <style name="settingsButtons">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/vertical_margin</item>
+        <item name="android:background">@drawable/settings_ripple_effect</item>
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <style name="normalTextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/horizontal_margin</item>
+        <item name="android:textSize">@dimen/normalText</item>
+        <item name="android:textColor">@color/colorDark</item>
+    </style>
+
+    <style name="smallText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/horizontal_margin</item>
+        <item name="android:textSize">@dimen/smallText</item>
+        <item name="android:textColor">@color/colorDarkWhiter</item>
+    </style>
+
+    <style name="separator">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_marginTop">@dimen/vertical_margin</item>
+        <item name="android:layout_marginStart">@dimen/horizontal_margin</item>
+        <item name="android:layout_marginEnd">@dimen/horizontal_margin</item>
+        <item name="android:background">@color/colorDark</item>
+    </style>
+
+    <style name="mainToolbar">
+        <item name="android:theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:background">@color/colorToolbar</item>
+    </style>
+
+    <style name="actionMenu" parent="Theme.AppCompat.Light">
+        <item name="background">@color/colorWhite</item>
+        <item name="android:textColor">@color/colorDark</item>
+    </style>
+
+    <style name="fragment_header">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">100dp</item>
+        <item name="android:background">@color/colorToolbar</item>
+    </style>
+
+    <style name="enter_extended_floating_button" >
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/horizontal_margin</item>
+        <item name="android:padding">@dimen/vertical_margin</item>
+        <item name="android:paddingLeft">@dimen/horizontal_margin</item>
+        <item name="android:paddingRight">@dimen/horizontal_margin</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textAlignment">center</item>
+<!--        <item name="app:backgroundTint"></item>-->
+
+    </style>
+
+    <style name="login_tooltip_box">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:paddingBottom">@dimen/vertical_margin</item>
+<!--        <item name="android:layout_marginBottom">40dp</item>-->
+    </style>
+
+    <style name="login_tooltip_box_image_view">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minWidth">70dp</item>
+        <item name="android:minHeight">70dp</item>
+        <item name="android:layout_marginStart">@dimen/horizontal_margin</item>
+    </style>
+
+    <style name="login_tooltip_box_text_view">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorDark</item>
+        <item name="android:textAlignment">textStart</item>
+        <item name="android:textSize">@dimen/smallText</item>
+    </style>
+
+    <style name="fragment_create_room_setting_toggle_button_selector_style">
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:background">@drawable/toggle_button_selector</item>
+        <item name="android:focusable">false</item>
+        <item name="android:focusableInTouchMode">false</item>
+        <item name="android:textOff"></item>
+        <item name="android:textOn"></item>
+    </style>
+
+    <style name="fragment_create_room_setting_title_text_style">
+        <item name="android:textSize">@dimen/normalText</item>
+        <item name="android:textColor">@color/colorDark</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="fragment_create_room_setting_container_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingStart">@dimen/horizontal_margin</item>
+        <item name="android:paddingEnd">@dimen/horizontal_margin</item>
+        <item name="android:layout_marginTop">@dimen/horizontal_margin</item>
+    </style>
+</resources>

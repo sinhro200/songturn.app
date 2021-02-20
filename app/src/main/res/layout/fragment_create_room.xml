@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragments.CreateRoomFragment">
+
+    <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+        android:id="@+id/fragment_create_room_room_title_textFieldBoxes"
+        style="@style/TextFieldBoxesStyle"
+        android:layout_marginBottom="@dimen/vertical_margin"
+        app:labelText="@string/fragment_create_room_room_title_label"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+            android:id="@+id/fragment_create_room_room_title_extendedEditText"
+            style="@style/TextFieldBoxesExtendedEditTextStyle"
+            android:imeOptions="actionDone"
+            android:inputType="text" />
+
+    </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+    <androidx.core.widget.NestedScrollView
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_create_room_room_title_textFieldBoxes"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_create_room_accept_button"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                android:id="@+id/fragment_create_room_room_settings_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="@string/fragment_create_room_room_settings_label"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/smallText"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/fragment_create_room_setting_song_owners_visible_container"
+                style="@style/fragment_create_room_setting_container_style"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_create_room_room_settings_label">
+
+                <TextView
+                    style="@style/fragment_create_room_setting_title_text_style"
+                    android:text="@string/fragment_create_room_setting_song_owner_visible_label"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/fragment_create_room_setting_song_owner_visible_toggle_button"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ToggleButton
+                    android:id="@+id/fragment_create_room_setting_song_owner_visible_toggle_button"
+                    style="@style/fragment_create_room_setting_toggle_button_selector_style"
+                    app:layout_constraintEnd_toEndOf="parent"
+
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/fragment_create_room_setting_allow_votes_container"
+                style="@style/fragment_create_room_setting_container_style"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_create_room_setting_song_owners_visible_container">
+
+                <TextView
+                    style="@style/fragment_create_room_setting_title_text_style"
+                    android:text="@string/fragment_create_room_setting_allow_votes_label"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/fragment_create_room_setting_allow_votes_toggle_button"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ToggleButton
+                    android:id="@+id/fragment_create_room_setting_allow_votes_toggle_button"
+                    style="@style/fragment_create_room_setting_toggle_button_selector_style"
+                    app:layout_constraintEnd_toEndOf="parent"
+
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/fragment_create_room_setting_anybody_can_listen_container"
+                style="@style/fragment_create_room_setting_container_style"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_create_room_setting_allow_votes_container">
+
+                <TextView
+                    style="@style/fragment_create_room_setting_title_text_style"
+                    android:text="@string/fragment_create_room_setting_anybody_can_listen_label"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/fragment_create_room_setting_anybody_can_listen_toggle_button"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ToggleButton
+                    android:id="@+id/fragment_create_room_setting_anybody_can_listen_toggle_button"
+                    style="@style/fragment_create_room_setting_toggle_button_selector_style"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:clickable="false"
+                    android:checked="true"
+
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/fragment_create_room_setting_priority_rarely_ordering_container"
+                style="@style/fragment_create_room_setting_container_style"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_create_room_setting_anybody_can_listen_container">
+
+                <TextView
+                    style="@style/fragment_create_room_setting_title_text_style"
+                    android:text="@string/fragment_create_room_setting_priprity_rarely_ordering_label"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/fragment_create_room_setting_priority_rarely_ordering_toggle_button"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ToggleButton
+                    android:id="@+id/fragment_create_room_setting_priority_rarely_ordering_toggle_button"
+                    style="@style/fragment_create_room_setting_toggle_button_selector_style"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:clickable="false"
+                    android:checked="false"
+                    />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fragment_create_room_accept_button"
+        style="@style/enter_extended_floating_button"
+        android:text="@string/create_button_title"
+        app:backgroundTint="@color/colorPrimary"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

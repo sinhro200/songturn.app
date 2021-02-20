@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.fragments.EnterCreateRoomFragment"
+    android:background="@color/colorWhite"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/fragment_enter_create_room_enter_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/vertical_margin"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:background="@drawable/settings_ripple_effect"
+        >
+
+        <TextView
+            android:id="@+id/fragment_enter_create_room_enter_textView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="@dimen/bigText"
+            android:textColor="@color/colorDark"
+            android:textAllCaps="true"
+            android:text="@string/fragment_enter_room_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/fragment_enter_create_room_create_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_enter_create_room_enter_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/vertical_margin"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:background="@drawable/settings_ripple_effect"
+        >
+
+        <TextView
+            android:id="@+id/fragment_enter_create_room_create_textView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="@dimen/bigText"
+            android:textColor="@color/colorDark"
+            android:textAllCaps="true"
+            android:text="@string/fragment_create_room_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

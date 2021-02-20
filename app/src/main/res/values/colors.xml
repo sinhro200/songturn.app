@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6D2F9A</color>
+    <color name="colorPrimaryDark">#493657</color>
+    <color name="colorAccent">#326771</color>
+
+<!--    <color name="colorDark">#2D3047</color>-->
+    <color name="colorDark">#170A1C</color>
+    <color name="colorDarkWhiter">#aa46475C</color>
+    <color name="colorGray">#8E8B98</color>
+<!--    <color name="colorWhite">#EEE5E9</color>-->
+<!--    <color name="colorWhite">#EAFDF8</color>-->
+    <color name="colorWhite">#F9F5FD</color>
+    <color name="colorWhiteDarker">#DAEBD5</color>
+    <color name="colorError">#FF6B6B</color>
+
+    <color name="colorToolbar">@color/colorPrimaryDark</color>
+
+    <color name="colorLoader">@color/colorPrimaryDark</color>
+    <color name="drawerHeaderColor">@color/colorPrimaryDark</color>
+
+    <!-- Material DEFAULT colors -->
+    <color name="material_drawer_primary">@color/colorPrimary</color>
+    <color name="material_drawer_primary_dark">@color/colorPrimary</color>
+    <color name="material_drawer_primary_light">#BBDEFB</color>
+    <color name="material_drawer_accent">@color/colorAccent</color>
+
+    <!-- OVERWRITE THESE COLORS FOR A LIGHT THEME -->
+    <!-- MaterialDrawer DEFAULT colors -->
+    <color name="material_drawer_background">@color/colorWhite</color>
+    <!-- Material DEFAULT text / items colors -->
+    <color name="material_drawer_primary_text">@color/colorDark</color>
+    <color name="material_drawer_primary_icon">#8A000000</color>
+    <color name="material_drawer_secondary_text">#8A000000</color>
+    <color name="material_drawer_hint_text">#42000000</color>
+    <color name="material_drawer_divider">#1F000000</color>
+    <!-- Material DEFAULT drawer colors -->
+    <color name="material_drawer_selected">#1F2196F3</color>
+    <color name="material_drawer_selected_legacy">#E8E8E8</color>
+    <color name="material_drawer_selected_text">@color/colorPrimary</color>
+    <color name="material_drawer_header_selection_text">@color/colorWhite</color>
+    <color name="material_drawer_header_selection_subtext">@color/colorWhiteDarker</color>
+
+
+</resources>

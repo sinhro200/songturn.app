@@ -1,0 +1,107 @@
+<resources>
+    <string name="app_name">SongTurn</string>
+
+
+    <string name="ErrorCodeIs">Код ошибки</string>
+    <string name="error_close_alert_dialog_button_text">Закрыть</string>
+    <string name="ShowError">Информация об ошибке</string>
+    <string name="ConfirmForFinishRegister">Для окончания регистрации пройдите по ссылке отправленной на почту</string>
+    <string name="UserSuccessfullyRegistered">Пользователь успешно зарегистрирован.</string>
+    <string name="status_online">В сети</string>
+
+    <string name="settings_account_label">Аккаунт</string>
+    <string name="settings_nickname_label">Нажмите чтобы изменить имя пользователя</string>
+    <string name="settings_login_label">Логин</string>
+    <string name="settings_email_label">Почта</string>
+
+    <string name="settings_login_default_value">user login</string>
+    <string name="settings_nickname_default_value">user nickname</string>
+    <string name="settings_email_default_value">user_email@email.email</string>
+
+    <string name="settings_menu_exit">Выход</string>
+
+    <string name="loader_loading_label">Загрузка</string>
+    <string name="auth_login_demo_account_tab_title">Временный аккаунт</string>
+    <string name="auth_login_demo_account_tooltip">Одноразовый аккаунт удаляется после 24 часов бездействия</string>
+    <string name="auth_login_regular_account_tab_title">Постоянный аккаунт</string>
+    <string name="auth_login_regular_account_tooltip">На постоянном аккаунте будут сохранятся созданные вами комнаты, история заказов и многое другое.</string>
+    <string name="enter">Войти</string>
+
+    <!--        ###     order song activity     -->
+    <string name="activity_order_song_button_order">Заказать</string>
+    <string name="activity_order_song_room_info_label">Информация о комнате</string>
+    <string name="activity_order_song_room_title_label">Название комнаты</string>
+    <string name="activity_order_song_dialog_exit">Выйти</string>
+    <string name="activity_order_song_dialog_text">Чтобы заказать песню, вы должны находиться в комнате.</string>
+    <string name="activity_order_song_dialog_title">Ошибка заказа песни</string>
+    <string name="activity_order_song_error_cant_order_song">Не удалось заказать песню</string>
+    <string name="activity_order_song_succesfully_ordered">Успех</string>
+
+    <!--        ###     room info fragment      -->
+    <string name="fragment_room_info_invite_code_label">Код комнаты</string>
+    <string name="fragment_room_info_title">Информация о комнате</string>
+    <string name="fragment_room_info_room_settings_label">Настройки комнаты</string>
+    <string name="fragment_room_info_users_label">Люди в комнате</string>
+
+    <!--        ###     authorization            -->
+    <string name="auth_login_demo_account_field_title_nickname">Имя пользователя и логин одновременно</string>
+    <string name="auth_register_page_title">Регистрация</string>
+    <string name="auth_login_page_title">Авторизация</string>
+    <string name="auth_register_field_title_confirm_password">Подтверждение пароля</string>
+    <string name="auth_register_field_title_password">Пароль</string>
+    <string name="auth_register_field_title_email">Почта</string>
+    <string name="auth_register_field_title_nickname">Ник</string>
+    <string name="auth_register_field_title_login">Логин</string>
+    <string name="auth_login_field_title_login">Логин</string>
+    <string name="auth_login_field_title_password">Пароль</string>
+
+    <string name="field_is_optional_tooltip">Не обязательное поле</string>
+
+    <string name="auth_login_enter_button_title">Вход</string>
+    <string name="auth_register_button_title">Регистрация</string>
+
+    <!--        #       Field errors        -->
+    <string name="field_data_error_minimum_n_symbols">Минимум %1$d символов</string>
+    <string name="field_data_error_maximum_n_symbols">Максимум %1$d символов</string>
+    <string name="field_data_error_minimum_value_n">Минимальное значение - %1$d</string>
+    <string name="field_data_error_maximum_value_n">Максимальное значение - %1$d</string>
+    <string name="field_data_error_wrong_value">Неверное значение</string>
+    <string name="field_data_error_must_contain_char">Должен содержать символ %1$s</string>
+    <string name="field_data_error_must_not_contain_char">не должен содержать символа %1$s</string>
+    <string name="field_data_error_passwords_not_matches">Пароли не совпадают</string>
+
+    <string name="register_data_invalid">Данные для регистрации содержат ошибки</string>
+
+    <!--        ###     Errors          -->
+    <string name="error_default_text">Ошибка</string>
+    <string name="error_show_detail">Подробно</string>
+    <string name="error_cant_load_user_info">Ошибка подключения</string>
+    <string name="error_cant_load_user_info_before_close_app">Проблемы с подключением.\nВозвращайтесь в приложение через пару минут.</string>
+
+    <!--        ###     another strings     -->
+    <string name="fragment_create_room_title">Создание комнаты</string>
+    <string name="fragment_enter_room_title">Вход в комнату</string>
+    <string name="fragment_create_room_room_title_label">Название</string>
+    <string name="fragment_create_room_room_settings_label">Настройки</string>
+    <string name="fragment_create_room_setting_song_owner_visible_label">Видно пользователя заказавшего песню</string>
+    <string name="fragment_create_room_setting_allow_votes_label">Разрешить голосование за песни</string>
+    <string name="fragment_create_room_setting_anybody_can_listen_label">Любой может прослушивать</string>
+    <string name="fragment_create_room_setting_priprity_rarely_ordering_label">Приоритет редко заказывающим</string>
+
+    <string name="create_button_title">Создать</string>
+    <string name="register_data_invalid_unhandeled_common_error_toast">Данные содержат ошибку</string>
+    <string name="fragment_enter_room_room_invite_label">Код комнаты</string>
+    <string name="enter_button_title">войти</string>
+    <string name="settings_fragment_title">Настройки</string>
+    <string name="fragment_room_update_button">Обновить</string>
+    <string name="unable_to_play_audio">Невозможно проиграть аудио</string>
+    <string name="cant_find_song_link">Нет ссылки на песню</string>
+    <string name="input_data_invalid">Неверные данные</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="fragment_how_to_use_tooltip_main">Чтобы заказать песню просто поделитесь ей через это приложение, когда вы находитесь в комнате.</string>
+    <string name="fragment_how_to_use_fragment_title">Как заказать песню</string>
+    <string name="fragment_room_playlist_empty_tooltip">Пока никто не заказал песен, вы можете быть первым.</string>
+    <string name="cant_listen">Невозможно прослушать</string>
+    <string name="listening_mode_off">Отключён режим прослушивания</string>
+</resources>

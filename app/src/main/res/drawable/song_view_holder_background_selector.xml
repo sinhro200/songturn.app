@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    >
+    <item
+        custom:song_state_listening="true"
+        android:drawable="@color/colorWhiteDarker"/>
+    <item
+        custom:song_state_error="true"
+        android:drawable="@color/colorError"
+        />
+    <item
+        custom:song_state_error="false"
+        custom:song_state_playing="true"
+        custom:song_state_selected="true"
+        android:drawable="@color/colorAccent"
+        />
+    <item
+        custom:song_state_error="false"
+        custom:song_state_selected="true"
+        custom:song_state_playing="false"
+        android:drawable="@color/colorPrimaryDark"
+        />
+    <item
+        custom:song_state_error="false"
+        custom:song_state_selected="false"
+        android:drawable="@color/colorWhite"
+        />
+</selector>

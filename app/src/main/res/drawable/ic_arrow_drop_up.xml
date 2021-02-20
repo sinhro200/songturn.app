@@ -1,0 +1,19 @@
+<vector
+    android:height="24dp"
+    android:tint="@color/colorPrimaryDark"
+    android:viewportHeight="24"
+    android:viewportWidth="24"
+    android:width="24dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+<!--    android:tint="@color/arrow_color_selector"-->
+    <!--        android:fillColor="@android:color/white"-->
+    <!--        android:strokeColor="@color/colorPrimaryDark"-->
+    <!--        android:strokeWidth="1"-->
+
+    <path
+        android:strokeWidth="1"
+        android:strokeColor="@color/colorWhite"
+        android:pathData="M7,14 l5,-5 5,5z"
+        />
+</vector>

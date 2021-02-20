@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/room_menu_listen"
+        android:icon="@drawable/ic_audio_listen"
+        android:title=""
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/room_menu_info"
+        android:icon="@drawable/ic_info"
+        android:title=""
+        app:showAsAction="always" />
+</menu>

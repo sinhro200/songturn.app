@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SongState">
+        <attr name="song_state_listening" format="boolean" />
+        <attr name="song_state_playing" format="boolean" />
+        <attr name="song_state_selected" format="boolean" />
+        <attr name="song_state_error" format="boolean" />
+    </declare-styleable>
+</resources>

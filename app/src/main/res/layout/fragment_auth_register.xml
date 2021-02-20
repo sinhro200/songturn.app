@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragments.RegisterFragment">
+
+    <androidx.core.widget.NestedScrollView
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/register_body_constrained_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="10sp"
+            android:layout_marginEnd="10sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="100dp"
+            >
+            <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                android:id="@+id/login_register_text_field_boxes"
+                style="@style/TextFieldBoxesStyle"
+                app:labelText="@string/auth_register_field_title_login"
+                android:layout_marginBottom="@dimen/vertical_margin"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/username_register_text_field_boxes"
+                >
+
+                <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                    android:id="@+id/login_register_extended_edit_text"
+                    style="@style/TextFieldBoxesExtendedEditTextStyle"
+                    android:inputType="text"
+                    android:imeOptions="actionNext"
+                    />
+
+            </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+            <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                android:id="@+id/username_register_text_field_boxes"
+                style="@style/TextFieldBoxesStyle"
+                app:labelText="@string/auth_register_field_title_nickname"
+                android:layout_marginBottom="@dimen/vertical_margin"
+                app:layout_constraintTop_toBottomOf="@id/login_register_text_field_boxes"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/email_register_text_field_boxes"
+                >
+
+                <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                    android:id="@+id/username_register_extended_edit_text"
+                    style="@style/TextFieldBoxesExtendedEditTextStyle"
+                    android:inputType="text"
+                    android:imeOptions="actionNext"
+                    />
+
+            </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+            <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                android:id="@+id/email_register_text_field_boxes"
+                style="@style/TextFieldBoxesStyle"
+                app:labelText="@string/auth_register_field_title_email"
+                app:helperText="@string/field_is_optional_tooltip"
+                android:layout_marginBottom="@dimen/vertical_margin"
+                app:layout_constraintTop_toBottomOf="@id/username_register_text_field_boxes"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/password_register_text_field_boxes"
+                >
+
+                <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                    android:id="@+id/email_register_extended_edit_text"
+                    style="@style/TextFieldBoxesExtendedEditTextStyle"
+                    android:inputType="text"
+                    android:imeOptions="actionNext"
+                    />
+
+            </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+            <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                android:id="@+id/password_register_text_field_boxes"
+                style="@style/TextFieldBoxesStyle"
+                app:labelText="@string/auth_register_field_title_password"
+                app:endIcon="@drawable/ic_eye_closed"
+                android:layout_marginBottom="@dimen/vertical_margin"
+                app:layout_constraintTop_toBottomOf="@id/email_register_text_field_boxes"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/password_confirmation_register_text_field_boxes"
+                >
+                <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                    android:id="@+id/password_register_extended_edit_text"
+                    style="@style/TextFieldBoxesExtendedEditTextStyle"
+                    android:inputType="textPassword"
+                    android:imeOptions="actionNext"
+                    />
+            </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+            <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                android:id="@+id/password_confirmation_register_text_field_boxes"
+                style="@style/TextFieldBoxesStyle"
+                app:labelText="@string/auth_register_field_title_confirm_password"
+                app:endIcon="@drawable/ic_eye_closed"
+
+                app:layout_constraintTop_toBottomOf="@id/password_register_text_field_boxes"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                >
+                <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                    android:id="@+id/password_confirmation_register_extended_edit_text"
+                    style="@style/TextFieldBoxesExtendedEditTextStyle"
+                    android:inputType="textPassword"
+                    android:imeOptions="actionDone"
+                    />
+            </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/register_enter_button"
+        android:text="@string/auth_register_button_title"
+        app:backgroundTint="@color/colorPrimary"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        style="@style/enter_extended_floating_button" />
+</androidx.constraintlayout.widget.ConstraintLayout>

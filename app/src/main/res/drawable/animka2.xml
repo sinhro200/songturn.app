@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt">
+    <aapt:attr name="android:drawable">
+        <vector xmlns:android="http://schemas.android.com/apk/res/android"
+            android:width="30dp"
+            android:height="20dp"
+            android:viewportWidth="30"
+            android:viewportHeight="20">
+            <group
+                android:name="sas"
+                android:pivotX="15"
+                android:pivotY="10"
+                android:rotation="180">
+                <path
+                    android:name="animation_path"
+                    android:pathData="M5,0 V10 M15,0 V20 M25,0 V20 Z"
+                    android:strokeWidth="9"
+                    android:strokeColor="@color/colorLoader" />
+            </group>
+        </vector>
+    </aapt:attr>
+    <aapt:attr name="android:drawable">
+        <vector xmlns:android="http://schemas.android.com/apk/res/android"
+            android:width="30dp"
+            android:height="20dp"
+            android:viewportWidth="30"
+            android:viewportHeight="20">
+            <group
+                android:name="sas"
+                android:pivotX="15"
+                android:pivotY="10"
+                android:rotation="180">
+                <path
+                    android:name="animation_path"
+                    android:pathData="M5,0 V20 M15,0 V10 M25,0 V20 Z"
+                    android:strokeWidth="9"
+                    android:strokeColor="@color/colorLoader" />
+            </group>
+        </vector>
+    </aapt:attr>
+
+    <target android:name="animation_path">
+        <aapt:attr name="android:animation">
+            <set android:ordering="sequentially">
+                <objectAnimator
+                    android:duration="500"
+                    android:interpolator="@android:interpolator/accelerate_decelerate"
+                    android:propertyName="pathData"
+                    android:valueFrom="@string/p1"
+                    android:valueTo="@string/p2"
+                    android:valueType="pathType" />
+
+                <objectAnimator
+                    android:duration="500"
+                    android:interpolator="@android:interpolator/accelerate_decelerate"
+                    android:propertyName="pathData"
+                    android:valueFrom="@string/p2"
+                    android:valueTo="@string/p3"
+                    android:valueType="pathType" />
+                <objectAnimator
+                    android:duration="500"
+                    android:interpolator="@android:interpolator/accelerate_decelerate"
+                    android:propertyName="pathData"
+                    android:valueFrom="@string/p3"
+                    android:valueTo="@string/p2"
+                    android:valueType="pathType" />
+                <objectAnimator
+                    android:duration="500"
+                    android:interpolator="@android:interpolator/accelerate_decelerate"
+                    android:propertyName="pathData"
+                    android:valueFrom="@string/p2"
+                    android:valueTo="@string/p1"
+                    android:valueType="pathType" />
+            </set>
+
+        </aapt:attr>
+    </target>
+</animated-vector>

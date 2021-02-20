@@ -1,0 +1,5 @@
+<resources>
+    <string name="p1">M5,0 V10 M15,0 V20 M25,0 V20 Z</string>
+    <string name="p2">M5,0 V20 M15,0 V10 M25,0 V20 Z</string>
+    <string name="p3">M5,0 V20 M15,0 V20 M25,0 V10 Z</string>
+</resources>
