@@ -35,4 +35,9 @@ class PlaylistRepositorySimple
             )
         )
 
+    fun wannaListen() =
+        super.wannaListen(ListenPlaylistReqData(roomToken,playlistTitle))
+
+    fun stopListen() =
+        super.stopListen(StopListenPlaylistReqData(roomToken,playlistTitle))
 }

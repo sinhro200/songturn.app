@@ -2,89 +2,102 @@
 <com.sinhro.songturn.app.ui.objects.SongItemView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/song_view_holder_background_selector"
-
-    >
-
-    <TextView
-        android:id="@+id/fragment_room_song_number_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
-        android:lines="1"
-        android:minWidth="24sp"
-        android:text="201"
-        android:textColor="@color/colorDarkWhiter"
-        android:textSize="@dimen/smallText"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    android:layout_height="@dimen/song_view_height"
+    android:background="@drawable/song_view_holder_background_selector">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/fragment_room_song_number_textView"
+        app:layout_constraintEnd_toStartOf="@+id/fragment_room_song_view_arrows_container"
+        app:layout_constraintStart_toStartOf="parent"
+
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/fragment_room_song_view_title_textView"
+            android:id="@+id/fragment_room_song_number_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="song title song title"
-            android:textColor="@color/colorDark"
-            android:textSize="@dimen/normalText"
-            app:layout_constraintBottom_toTopOf="@+id/fragment_room_song_view_artist_textView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/fragment_room_song_view_artist_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="song author song author"
-            android:textColor="@color/colorDark"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
+            android:lines="1"
+            android:minWidth="24sp"
+            android:text="201"
+            android:textColor="@color/colorDarkWhiter"
             android:textSize="@dimen/smallText"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_room_song_view_title_textView" />
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/fragment_room_song_view_duration_textView"
+            app:layout_constraintStart_toEndOf="@+id/fragment_room_song_number_textView"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/fragment_room_song_view_title_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="song title song title"
+                android:textColor="@color/colorDark"
+                android:textSize="@dimen/normalText"
+                app:layout_constraintBottom_toTopOf="@+id/fragment_room_song_view_artist_textView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/fragment_room_song_view_artist_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="song author song author"
+                android:textColor="@color/colorDark"
+                android:textSize="@dimen/smallText"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_room_song_view_title_textView" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/fragment_room_song_view_duration_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="70dp"
+            android:text="3:27"
+            android:textColor="@color/colorDark"
+            android:textSize="@dimen/normalText"
+            app:layout_constraintBottom_toTopOf="@+id/fragment_room_song_view_owner_textView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+
+            />
+
+        <TextView
+            android:id="@+id/fragment_room_song_view_owner_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:maxWidth="100dp"
+            android:maxLines="1"
+            android:text="song owner nickname"
+            android:textColor="@color/colorDarkWhiter"
+            android:textSize="@dimen/smallText"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_room_song_view_duration_textView" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/fragment_room_song_view_duration_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="70dp"
-        android:text="3:27"
-        android:textColor="@color/colorDark"
-        android:textSize="@dimen/normalText"
-        app:layout_constraintBottom_toTopOf="@+id/fragment_room_song_view_owner_textView"
-        app:layout_constraintEnd_toStartOf="@+id/fragment_room_song_view_arrows_container"
-        app:layout_constraintTop_toTopOf="parent"
-
-        />
-
-    <TextView
-        android:id="@+id/fragment_room_song_view_owner_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:maxWidth="100dp"
-        android:maxLines="1"
-        android:text="song owner nickname"
-        android:textColor="@color/colorDarkWhiter"
-        android:textSize="@dimen/smallText"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/fragment_room_song_view_arrows_container"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_room_song_view_duration_textView" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/fragment_room_song_view_arrows_container"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        >
 
         <View
             android:id="@+id/fragment_room_song_view_divider_arrows_container"
@@ -95,29 +108,48 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/fragment_room_song_view_arrow_up_imageView"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/fragment_room_song_view_arrow_up_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="32dp"
-            android:minHeight="32dp"
-            android:src="@drawable/arrow_up_selector"
-            app:layout_constraintBottom_toTopOf="@+id/fragment_room_song_view_arrow_down_imageView"
+            app:layout_constraintBottom_toTopOf="@+id/fragment_room_song_view_arrow_down_container"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/fragment_room_song_view_divider_arrows_container"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:paddingEnd="@dimen/vertical_margin"
+            android:paddingStart="2dp"
+            >
 
-        <ImageView
-            android:id="@+id/fragment_room_song_view_arrow_down_imageView"
+            <ImageView
+                android:id="@+id/fragment_room_song_view_arrow_up_imageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:minWidth="@dimen/song_view_height_div_2"
+                android:minHeight="@dimen/song_view_height_div_2"
+                android:src="@drawable/arrow_up_selector" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/fragment_room_song_view_arrow_down_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="32dp"
-            android:minHeight="32dp"
-            android:src="@drawable/arrow_down_selector"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/fragment_room_song_view_divider_arrows_container"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_room_song_view_arrow_up_imageView" />
+            app:layout_constraintTop_toBottomOf="@+id/fragment_room_song_view_arrow_up_container"
+            android:paddingEnd="@dimen/vertical_margin"
+            android:paddingStart="2dp"
+            >
+
+            <ImageView
+                android:id="@+id/fragment_room_song_view_arrow_down_imageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:minWidth="@dimen/song_view_height_div_2"
+                android:minHeight="@dimen/song_view_height_div_2"
+                android:src="@drawable/arrow_down_selector" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

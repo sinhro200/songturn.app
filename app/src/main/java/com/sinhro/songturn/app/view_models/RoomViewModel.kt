@@ -43,10 +43,6 @@ class RoomViewModel : ViewModel() {
             : AppRequestBuilder<CreateRoomReqData, CreateRoomRespBody> {
         return roomRepository.createRoom(createRoomReqData)
             .withOnSuccessSaveDataCallback {
-                ApplicationData.room_token = it.roomInfo.roomToken
-                ApplicationData.room_title = it.roomInfo.title
-                ApplicationData.roomSettings = it.roomInfo.roomSettings
-
                 roomLiveData.postValue(it.roomInfo)
             }
     }
@@ -55,9 +51,6 @@ class RoomViewModel : ViewModel() {
             : AppRequestBuilder<EnterRoomReqData, EnterRoomRespBody> {
         return roomRepository.enterRoom(enterRoomReqData)
             .withOnSuccessSaveDataCallback {
-                ApplicationData.room_token = it.roomInfo.roomToken
-                ApplicationData.room_title = it.roomInfo.title
-                ApplicationData.roomSettings = it.roomInfo.roomSettings
                 roomLiveData.postValue(it.roomInfo)
             }
     }
@@ -79,9 +72,6 @@ class RoomViewModel : ViewModel() {
             : AppRequestBuilder<RoomInfoReqData, RoomInfo> {
         return roomRepository.roomInfo()
             .withOnSuccessSaveDataCallback {
-                ApplicationData.room_title = it.title
-                ApplicationData.room_token = it.roomToken
-                ApplicationData.roomSettings = it.roomSettings
                 roomLiveData.postValue(it)
             }
     }
@@ -90,11 +80,8 @@ class RoomViewModel : ViewModel() {
             : AppRequestBuilder<RoomInfoReqData, FullRoomInfoRespBody> {
         return roomRepository.fullRoomInfo()
             .withOnSuccessSaveDataCallback {
-                ApplicationData.room_token = it.roomInfo.roomToken
-                ApplicationData.room_title = it.roomInfo.title
-                ApplicationData.roomSettings = it.roomInfo.roomSettings
                 if (it.playlists.isNotEmpty())
-                    ApplicationData.playlist_title = it.playlists[0].title
+                    ApplicationData.playlistInfo = it.playlists[0]
                 roomLiveData.postValue(it.roomInfo)
                 usersInRoomLiveData.postValue(it.usersInRoom)
 
@@ -107,7 +94,7 @@ class RoomViewModel : ViewModel() {
             .withOnSuccessSaveDataCallback {
                 playlistsInRoomLiveData.postValue(it.playlists)
                 if (it.playlists.isNotEmpty())
-                    ApplicationData.playlist_title = it.playlists[0].title
+                    ApplicationData.playlistInfo = it.playlists[0]
             }
     }
 

@@ -22,8 +22,8 @@ class AppSongsRecyclerViewAdapter(
     private var chosenSongId: Int? = null
     private var playingSongId: Int? = null
 
-    var onSongArrowUpClickCallback: ((SongInfo) -> Unit)? = null
-    var onSongArrowDownClickCallback: ((SongInfo) -> Unit)? = null
+    var onSongArrowUpClickCallback: ((SongInfoVoted) -> Unit)? = null
+    var onSongArrowDownClickCallback: ((SongInfoVoted) -> Unit)? = null
     var onSongClickCallback: ((SongInfo) -> Unit)? = null
 
     fun notifyChangedBySongId(songId: Int?) {
@@ -141,25 +141,25 @@ class AppSongsRecyclerViewAdapter(
         holderCustom.durationTextView.text =
             "${(songInfoVoted.songInfo.durationSeconds / 60)}:${(songInfoVoted.songInfo.durationSeconds % 60)}"
         holderCustom.ownerTextView.text = if (
-            ApplicationData.roomSettings.songOwnersVisible && songInfoVoted.songInfo.userId != null
+            ApplicationData.roomInfo?.roomSettings?.songOwnersVisible == true && songInfoVoted.songInfo.userId != null
         )
             ApplicationData.usersInRoom.find { it.id == songInfoVoted.songInfo.userId }?.nickname
                 ?: ""
         else ""
 
-        if (ApplicationData.roomSettings.allowVotes) {
-            holderCustom.arrowsContainer.visibility = View.VISIBLE
+        if (ApplicationData.roomInfo?.roomSettings?.allowVotes == true) {
+            holderCustom.ratingContainer.visibility = View.VISIBLE
             holderCustom.ratingUpButton.isSelected = songInfoVoted.action > 0
             holderCustom.ratingDownButton.isSelected = songInfoVoted.action < 0
         } else {
-            holderCustom.arrowsContainer.visibility = View.INVISIBLE
+            holderCustom.ratingContainer.visibility = View.GONE
         }
 
         holderCustom.ratingUpButton.setOnClickListener {
-            onSongArrowUpClickCallback?.invoke(songInfoVoted.songInfo)
+            onSongArrowUpClickCallback?.invoke(songInfoVoted)
         }
         holderCustom.ratingDownButton.setOnClickListener {
-            onSongArrowDownClickCallback?.invoke(songInfoVoted.songInfo)
+            onSongArrowDownClickCallback?.invoke(songInfoVoted)
         }
         holderCustom.customSongView.setOnClickListener {
             onSongClickCallback?.invoke(songInfoVoted.songInfo)
@@ -193,10 +193,10 @@ class AppSongsRecyclerViewAdapter(
             this.ownerTextView =
                 customSongView.findViewById(R.id.fragment_room_song_view_owner_textView)
             this.ratingUpButton =
-                customSongView.findViewById(R.id.fragment_room_song_view_arrow_up_imageView)
+                customSongView.findViewById(R.id.fragment_room_song_view_arrow_up_container)
             this.ratingDownButton =
-                customSongView.findViewById(R.id.fragment_room_song_view_arrow_down_imageView)
-            this.arrowsContainer =
+                customSongView.findViewById(R.id.fragment_room_song_view_arrow_down_container)
+            this.ratingContainer =
                 customSongView.findViewById(R.id.fragment_room_song_view_arrows_container)
             initListeners()
         }
@@ -216,7 +216,7 @@ class AppSongsRecyclerViewAdapter(
         val ownerTextView: TextView
         val ratingUpButton: View
         val ratingDownButton: View
-        val arrowsContainer: View
+        val ratingContainer: View
 
         fun setSongListening() {
             customSongView.setSongListening()

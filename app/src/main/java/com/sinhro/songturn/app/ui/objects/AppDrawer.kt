@@ -1,5 +1,6 @@
 package com.sinhro.songturn.app.ui.objects
 
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity

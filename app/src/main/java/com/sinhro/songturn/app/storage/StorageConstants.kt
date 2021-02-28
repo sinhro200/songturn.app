@@ -9,6 +9,7 @@ const val USER_ACCESS_TOKEN = "user_accessToken"
 
 //const val ROOM_INVITE_CODE = "room_inviteCode"
 const val ROOM_TOKEN = "room_token"
+const val ROOM_INFO = "room_info"
 const val ROOM_PLAYLIST = "room_main_playlist_title"
 //const val ROOM_TITLE = "room_title"
 

@@ -22,7 +22,7 @@
 
     <string name="loader_loading_label">Загрузка</string>
     <string name="auth_login_demo_account_tab_title">Временный аккаунт</string>
-    <string name="auth_login_demo_account_tooltip">Одноразовый аккаунт удаляется после 24 часов бездействия</string>
+    <string name="auth_login_demo_account_tooltip">Временный аккаунт удаляется после 24 часов бездействия</string>
     <string name="auth_login_regular_account_tab_title">Постоянный аккаунт</string>
     <string name="auth_login_regular_account_tooltip">На постоянном аккаунте будут сохранятся созданные вами комнаты, история заказов и многое другое.</string>
     <string name="enter">Войти</string>
@@ -44,7 +44,7 @@
     <string name="fragment_room_info_users_label">Люди в комнате</string>
 
     <!--        ###     authorization            -->
-    <string name="auth_login_demo_account_field_title_nickname">Имя пользователя и логин одновременно</string>
+    <string name="auth_login_demo_account_field_title_nickname">Имя пользователя</string>
     <string name="auth_register_page_title">Регистрация</string>
     <string name="auth_login_page_title">Авторизация</string>
     <string name="auth_register_field_title_confirm_password">Подтверждение пароля</string>
@@ -102,6 +102,14 @@
     <string name="fragment_how_to_use_tooltip_main">Чтобы заказать песню просто поделитесь ей через это приложение, когда вы находитесь в комнате.</string>
     <string name="fragment_how_to_use_fragment_title">Как заказать песню</string>
     <string name="fragment_room_playlist_empty_tooltip">Пока никто не заказал песен, вы можете быть первым.</string>
-    <string name="cant_listen">Невозможно прослушать</string>
+    <string name="cant_listen">Не удалось перейти в режим прослушивания</string>
     <string name="listening_mode_off">Отключён режим прослушивания</string>
+    <string name="fragment_room_menu_listen_default">Прослушивать</string>
+    <string name="fragment_room_menu_info">Информация о комнате</string>
+    <string name="fragment_room_menu_listen_wanna">Прослушивать</string>
+    <string name="fragment_room_menu_listen_finish">Закончить прослушивание</string>
+    <string name="user_in_listen_mode">Вы в режиме прослушивания</string>
+    <string name="user_out_of_listen_mode">Вы вышли из режима прослушивания</string>
+    <string name="cant_out_of_listen_mode">Не удалось выйти из режима прослушивания</string>
+    <string name="playlist_already_has_listener">В комнате уже есть прослушивающий.</string>
 </resources>

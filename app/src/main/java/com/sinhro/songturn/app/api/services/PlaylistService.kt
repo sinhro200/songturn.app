@@ -40,7 +40,7 @@ class PlaylistService(
 
         @POST("/playlist/stoplisten")
         fun stopListenSong(
-            @Body stopListenPlaylistRespBody: StopListenPlaylistRespBody
+            @Body stopListenPlaylistRespBody: StopListenPlaylistReqData
         ): Observable<Response<StopListenPlaylistRespBody>>
 
         @POST("/playlist/wannalisten")
@@ -84,5 +84,11 @@ class PlaylistService(
         .observableFrom { playlistApi.voteForSong(it) }
         .build()
 
+    val stopListen = AppNetService.Builder<StopListenPlaylistReqData, StopListenPlaylistRespBody>()
+        .observableFrom { playlistApi.stopListenSong(it) }
+        .build()
 
+    val wannaListen = AppNetService.Builder<ListenPlaylistReqData, ListenPlaylistRespBody>()
+        .observableFrom { playlistApi.wannaListenSong(it) }
+        .build()
 }

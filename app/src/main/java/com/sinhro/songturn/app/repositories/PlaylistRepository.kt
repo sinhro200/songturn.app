@@ -39,4 +39,14 @@ open class PlaylistRepository(
             : AppRequestBuilder<VoteForSongReqData, VoteForSongRespBody> {
         return AppRequestBuilder(ps.voteForSong, voteForSongReqData)
     }
+
+    fun wannaListen(listenPlaylistReqData: ListenPlaylistReqData)
+            : AppRequestBuilder<ListenPlaylistReqData, ListenPlaylistRespBody> {
+        return AppRequestBuilder(ps.wannaListen,listenPlaylistReqData)
+    }
+
+    fun stopListen(stopListenPlaylistReqData: StopListenPlaylistReqData)
+            : AppRequestBuilder<StopListenPlaylistReqData, StopListenPlaylistRespBody> {
+        return AppRequestBuilder(ps.stopListen,stopListenPlaylistReqData)
+    }
 }

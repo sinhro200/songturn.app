@@ -37,7 +37,6 @@ class EnterRoomFragment : DisabledDrawerFragment(R.layout.fragment_enter_room) {
             roomViewModel.enterRoom(enterRoomReqData)
                 .withErrorCollectorViewModel()
                 .withOnSuccessCallback {
-                    ApplicationData.room_token = it.roomInfo.roomToken
                     roomViewModel.roomLiveData.postValue(it.roomInfo)
                     replaceFragment(RoomFragment())
                 }

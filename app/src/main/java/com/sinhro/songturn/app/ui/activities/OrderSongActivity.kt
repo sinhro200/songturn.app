@@ -30,11 +30,11 @@ class OrderSongActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
-        if (ApplicationData.access_token.isBlank() || ApplicationData.room_token.isBlank())
+        if (ApplicationData.access_token.isBlank() || ApplicationData.roomInfo == null)
             userNotInRoomErrorDialog()
                 .show()
         else {
-            activity_order_song_room_title.text = ApplicationData.room_title
+            activity_order_song_room_title.text = ApplicationData.roomInfo?.title
 
             activity_order_song_button_order.setOnClickListener {
                 orderSong()

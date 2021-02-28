@@ -1,8 +1,11 @@
 package com.sinhro.songturn.app.storage
 
+import com.sinhro.musicord.storage.ROOM_INFO
 import com.sinhro.musicord.storage.ROOM_TOKEN
 import com.sinhro.musicord.storage.Storage
 import com.sinhro.musicord.storage.USER_ACCESS_TOKEN
+import com.sinhro.songturn.app.api.JacksonObjectMapperProvider
+import com.sinhro.songturn.rest.model.RoomInfo
 
 class StorageService constructor(private val storage: Storage) {
 
@@ -19,7 +22,9 @@ class StorageService constructor(private val storage: Storage) {
 
     var accessToken: String?
         get() = storage.get(USER_ACCESS_TOKEN)
-        set(value) {storage.save(USER_ACCESS_TOKEN, value)}
+        set(value) {
+            storage.save(USER_ACCESS_TOKEN, value)
+        }
 
     /*fun saveAccessToken(accToken: String) = storage.save(USER_ACCESS_TOKEN, accToken)
 
@@ -30,7 +35,23 @@ class StorageService constructor(private val storage: Storage) {
 
     var roomToken: String?
         get() = storage.get(ROOM_TOKEN)
-        set(value) {storage.save(ROOM_TOKEN, value)}
+        set(value) {
+            storage.save(ROOM_TOKEN, value)
+        }
+
+    var roomInfo: RoomInfo?
+        get() = storage.get(ROOM_INFO).let {
+            if (it.isNullOrBlank())
+                return@let null
+            return@let JacksonObjectMapperProvider.objectMapper.readValue(
+                it,
+                RoomInfo::class.java
+            )
+        }
+        set(value) = storage.save(
+            ROOM_INFO,
+            JacksonObjectMapperProvider.objectMapper.writeValueAsString(value)
+        )
 
     /*fun saveRoomToken(roomToken: String) = storage.save(ROOM_TOKEN, roomToken)
 

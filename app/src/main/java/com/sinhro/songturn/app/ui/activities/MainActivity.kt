@@ -12,10 +12,10 @@ import com.sinhro.songturn.app.R
 import com.sinhro.songturn.app.databinding.ActivityMainBinding
 import com.sinhro.songturn.app.media_player.Broadcast_PAUSE_RESUME_AUDIO
 import com.sinhro.songturn.app.media_player.Broadcast_PLAY_NEW_AUDIO
+import com.sinhro.songturn.app.media_player.Broadcast_CLOSE_AUDIO
 import com.sinhro.songturn.app.media_player.MediaPlayerServiceV3
 import com.sinhro.songturn.app.model.ApplicationData
 import com.sinhro.songturn.app.ui.fragments.EnterCreateRoomFragment
-import com.sinhro.songturn.app.ui.fragments.EnterRoomFragment
 import com.sinhro.songturn.app.ui.fragments.RoomFragment
 import com.sinhro.songturn.app.ui.objects.AppDrawer
 import com.sinhro.songturn.app.utils.*
@@ -63,13 +63,19 @@ class MainActivity : AppCompatActivity() {
             viewModels<ErrorViewModel>().value.commonErrorMutableLiveData.observe(this,
                 { showError(it) })
 
-            roomViewModel.usersInRoomLiveData.observe(this,{
+            roomViewModel.usersInRoomLiveData.observe(this, {
                 ApplicationData.usersInRoom = it
+            })
+            roomViewModel.roomLiveData.observe(this,{
+                ApplicationData.roomInfo = it
+            })
+            userInfoViewModel.userLiveData.observe(this,{
+                ApplicationData.userInfo = it
             })
 
 
 
-            if (ApplicationData.room_token.isBlank())
+            if (ApplicationData.roomInfo == null)
                 replaceFragment(EnterCreateRoomFragment())
             else
                 replaceFragment(RoomFragment())
@@ -88,11 +94,11 @@ class MainActivity : AppCompatActivity() {
 
     fun logout() {
         ApplicationData.access_token = ""
-        ApplicationData.room_token = ""
-        ApplicationData.playlist_title = ""
+        ApplicationData.roomInfo = null
+        ApplicationData.playlistInfo = null
         ApplicationData.saveToStorage()
         userInfoViewModel.logoutUser()
-            .withOnEndLoad{
+            .withOnEndLoad {
                 replaceActivity(SplashActivity())
             }
             .run()
@@ -164,5 +170,11 @@ class MainActivity : AppCompatActivity() {
             val broadcastIntent = Intent(Broadcast_PAUSE_RESUME_AUDIO)
             sendBroadcast(broadcastIntent)
         }
+    }
+
+    fun closeAudio(){
+        val broadcastIntent = Intent(Broadcast_CLOSE_AUDIO)
+        sendBroadcast(broadcastIntent)
+        serviceBound=false
     }
 }

@@ -4,14 +4,11 @@ package com.sinhro.songturn.app.media_player.notification
 import android.app.*
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.drawable.Icon
 import android.media.session.MediaSession
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
-import com.sinhro.songturn.app.R as Songturn_R
 import android.R
 import com.sinhro.songturn.app.media_player.*
 import com.sinhro.songturn.rest.model.SongInfo
@@ -114,9 +111,9 @@ class AppNotificationManager : IAppNotificationManager {
 
         notificationBuilder.setChannelId(NOTIFICATION_CHANNEL_ID)
 
-        val closeNotificationIntent = Intent(Broadcast_CLOSE_NOTIFICATION)
+        val closeAudioIntent = Intent(Broadcast_CLOSE_AUDIO)
         val onDismissPendingIntent =
-            PendingIntent.getBroadcast(context, 0, closeNotificationIntent, 0)
+            PendingIntent.getBroadcast(context, 0, closeAudioIntent, 0)
 
         notificationBuilder.setDeleteIntent(onDismissPendingIntent)
 

@@ -43,9 +43,11 @@ class PlaylistViewModel : ViewModel() {
             : AppRequestBuilder<PlaylistSongsReqData, PlaylistSongsVotedRespBody> {
         return mainPlaylistRepository.playlistSongsVoted()
             .withOnSuccessSaveDataCallback {
-                ApplicationData.songsInQueue = it.playlistSongsVoted.songsInQueue.map { it.songInfo }
+                ApplicationData.songsInQueue =
+                    it.playlistSongsVoted.songsInQueue.map { it.songInfo }
                 ApplicationData.songCurrent = it.playlistSongsVoted.currentSong?.songInfo
-                ApplicationData.songsAlreadyPlayed = it.playlistSongsVoted.songsInQueue.map { it.songInfo }
+                ApplicationData.songsAlreadyPlayed =
+                    it.playlistSongsVoted.songsInQueue.map { it.songInfo }
 
                 playlistSongsVotedMutableLiveData.postValue(it.playlistSongsVoted)
                 currentListeningSongMutableLiveData.postValue(it.playlistSongsVoted.currentSong?.songInfo)
@@ -80,5 +82,13 @@ class PlaylistViewModel : ViewModel() {
     fun orderSong(songLink: String): AppRequestBuilder<OrderSongReqData, OrderSongRespBody> {
         return mainPlaylistRepository.orderSong(songLink)
             .withErrorCollectorViewModel()
+    }
+
+    fun stopListen(): AppRequestBuilder<StopListenPlaylistReqData, StopListenPlaylistRespBody> {
+        return mainPlaylistRepository.stopListen()
+    }
+
+    fun wannaListen(): AppRequestBuilder<ListenPlaylistReqData, ListenPlaylistRespBody> {
+        return mainPlaylistRepository.wannaListen()
     }
 }

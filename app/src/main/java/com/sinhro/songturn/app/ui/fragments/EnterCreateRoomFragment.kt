@@ -22,6 +22,7 @@ class EnterCreateRoomFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         initFields()
+        activity?.title = resources.getString(R.string.app_name)
     }
 
     fun initFields(){

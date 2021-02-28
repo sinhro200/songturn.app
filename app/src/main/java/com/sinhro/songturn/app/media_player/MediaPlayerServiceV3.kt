@@ -106,23 +106,6 @@ class MediaPlayerServiceV3 : Service(),
         registerReceiver(becomingNoisyReceiver, intentFilter)
     }
 
-
-    private val onCloseNotificationReceiver: BroadcastReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context, intent: Intent) {
-            Log.d(
-                this@MediaPlayerServiceV3::class.java.simpleName,
-                "received close notification intent"
-            )
-            mAppPlayer.stopMedia()
-            this@MediaPlayerServiceV3.stopSelf()
-        }
-    }
-
-    private fun registerOnCloseNotificationReceiver() {
-        val intentFilter = IntentFilter(Broadcast_CLOSE_NOTIFICATION)
-        registerReceiver(onCloseNotificationReceiver, intentFilter)
-    }
-
     private val playNewAudio: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
 
@@ -165,6 +148,23 @@ class MediaPlayerServiceV3 : Service(),
         //Register playNewMedia receiver
         val filter = IntentFilter(Broadcast_PAUSE_RESUME_AUDIO)
         registerReceiver(pauseResumeAudio, filter)
+    }
+
+    private val onCloseAudioReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            Log.d(
+                this@MediaPlayerServiceV3::class.java.simpleName,
+                "close audio intent"
+            )
+            mIAppNotificationManager.removeNotification()
+            mAppPlayer.stopMedia()
+            this@MediaPlayerServiceV3.stopSelf()
+        }
+    }
+
+    private fun registerOnCloseAudioReceiver() {
+        val intentFilter = IntentFilter(Broadcast_CLOSE_AUDIO)
+        registerReceiver(onCloseAudioReceiver, intentFilter)
     }
 
     override fun onCreate() {
@@ -235,7 +235,7 @@ class MediaPlayerServiceV3 : Service(),
         register_pauseResumeAudio()
 
         //Listen for closing notification
-        registerOnCloseNotificationReceiver()
+        registerOnCloseAudioReceiver()
     }
 
     override fun onDestroy() {
@@ -255,7 +255,7 @@ class MediaPlayerServiceV3 : Service(),
         unregisterReceiver(becomingNoisyReceiver)
         unregisterReceiver(playNewAudio)
         unregisterReceiver(pauseResumeAudio)
-        unregisterReceiver(onCloseNotificationReceiver)
+        unregisterReceiver(onCloseAudioReceiver)
     }
 
     private val appMediaSessionCallback: AppMediaSessionCallback =

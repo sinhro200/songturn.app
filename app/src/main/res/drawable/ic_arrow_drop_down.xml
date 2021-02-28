@@ -1,13 +1,11 @@
-<vector android:height="24dp"
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="@dimen/arrow_width"
+    android:height="@dimen/arrow_height"
     android:tint="@color/colorPrimaryDark"
-    android:viewportHeight="24"
-    android:viewportWidth="24"
-    android:width="24dp"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    >
+    android:viewportWidth="@integer/arrow_viewport_width"
+    android:viewportHeight="@integer/arrow_viewport_height">
     <path
+        android:pathData="M3,3 l5,5 5,-5z"
         android:strokeWidth="1"
-        android:strokeColor="@color/colorWhite"
-        android:pathData="M7,10l5,5 5,-5z"
-        />
+        android:strokeColor="@color/colorWhite" />
 </vector>
