@@ -92,7 +92,10 @@ class RoomFragment : Fragment(R.layout.fragment_room) {
 
     private fun observeViewModels() {
         roomViewModel.roomLiveData.observe(this, {
-            activity?.title = it.title
+            it?.title?.let {
+                activity?.title = it
+            }
+
         })
         /*playlistViewModel.currentListeningSongMutableLiveData.observe(
             this, {
