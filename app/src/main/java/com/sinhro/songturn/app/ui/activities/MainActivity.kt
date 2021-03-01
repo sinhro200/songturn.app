@@ -4,6 +4,7 @@ import android.content.*
 import android.os.Bundle
 import android.os.IBinder
 import android.os.PersistableBundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -12,7 +13,7 @@ import com.sinhro.songturn.app.R
 import com.sinhro.songturn.app.databinding.ActivityMainBinding
 import com.sinhro.songturn.app.media_player.Broadcast_PAUSE_RESUME_AUDIO
 import com.sinhro.songturn.app.media_player.Broadcast_PLAY_NEW_AUDIO
-import com.sinhro.songturn.app.media_player.Broadcast_CLOSE_AUDIO
+import com.sinhro.songturn.app.media_player.Broadcast_CLOSE_PLAYER
 import com.sinhro.songturn.app.media_player.MediaPlayerServiceV3
 import com.sinhro.songturn.app.model.ApplicationData
 import com.sinhro.songturn.app.ui.fragments.EnterCreateRoomFragment
@@ -64,12 +65,15 @@ class MainActivity : AppCompatActivity() {
                 { showError(it) })
 
             roomViewModel.usersInRoomLiveData.observe(this, {
+                Log.i(UserInfoViewModel::class.java.simpleName,"users in room saved in AppData, $it")
                 ApplicationData.usersInRoom = it
             })
             roomViewModel.roomLiveData.observe(this,{
+                Log.i(UserInfoViewModel::class.java.simpleName,"Room info saved in AppData, $it")
                 ApplicationData.roomInfo = it
             })
             userInfoViewModel.userLiveData.observe(this,{
+                Log.i(UserInfoViewModel::class.java.simpleName,"Full user info saved in AppData, $it")
                 ApplicationData.userInfo = it
             })
 
@@ -118,12 +122,14 @@ class MainActivity : AppCompatActivity() {
     private val serviceConnection: ServiceConnection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName, service: IBinder) {
             // We've bound to LocalService, cast the IBinder and get LocalService instance
+            Log.i(MediaPlayerServiceV3::class.java.simpleName,"Service connected to activity")
             val binder = service as MediaPlayerServiceV3.LocalBinder
             player = binder.service
             serviceBound = true
         }
 
         override fun onServiceDisconnected(name: ComponentName) {
+            Log.i(MediaPlayerServiceV3::class.java.simpleName,"Service disconnected to activity")
             serviceBound = false
         }
     }
@@ -145,7 +151,7 @@ class MainActivity : AppCompatActivity() {
                 .build()
                 .show()
         else
-        //Check is service is active
+        //Check is service active
             if (!serviceBound) {
 
                 val playerIntent = Intent(this, MediaPlayerServiceV3::class.java)
@@ -173,7 +179,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun closeAudio(){
-        val broadcastIntent = Intent(Broadcast_CLOSE_AUDIO)
+        val broadcastIntent = Intent(Broadcast_CLOSE_PLAYER)
         sendBroadcast(broadcastIntent)
         serviceBound=false
     }

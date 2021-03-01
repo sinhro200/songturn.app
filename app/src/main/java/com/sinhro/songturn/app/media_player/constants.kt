@@ -2,7 +2,7 @@ package com.sinhro.songturn.app.media_player
 
 const val Broadcast_PLAY_NEW_AUDIO = "com.sinhro.songturn.app.media_player.PlayNewAudio"
 const val Broadcast_PAUSE_RESUME_AUDIO = "com.sinhro.songturn.app.media_player.PauseAudio"
-const val Broadcast_CLOSE_AUDIO = "com.sinhro.songturn.app.media_player.CloseAudio"
+const val Broadcast_CLOSE_PLAYER = "com.sinhro.songturn.app.media_player.CloseAudio"
 
 const val Broadcast_CLOSE_NOTIFICATION = "com.sinhro.songturn.app.media_player.CloseNotification"
 

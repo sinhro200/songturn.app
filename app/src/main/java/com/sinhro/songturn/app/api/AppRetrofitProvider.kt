@@ -12,7 +12,7 @@ class AppRetrofitProvider {
     companion object {
         private fun createLoggerInterceptor(): HttpLoggingInterceptor {
             return HttpLoggingInterceptor().apply {
-                level = HttpLoggingInterceptor.Level.BODY
+                level = HttpLoggingInterceptor.Level.BASIC
             }
         }
 

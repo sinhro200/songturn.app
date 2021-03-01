@@ -3,17 +3,20 @@ package com.sinhro.songturn.app.utils
 import android.content.Context
 import android.content.Intent
 import android.os.Looper
+import android.view.LayoutInflater
 import android.view.View
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.sinhro.musicord.storage.Storage
 import com.sinhro.songturn.app.R
-import com.sinhro.songturn.app.storage.StorageService
 import com.sinhro.songturn.rest.core.CommonError
 import com.sinhro.songturn.rest.validation.ValidationResult
 import com.sinhro.songturn.rest.validation.ValidationResultType
-import java.lang.StringBuilder
+
 
 fun Fragment.showToast(message: String, isShort: Boolean = true) {
     Toast.makeText(this.context, message, if (isShort) Toast.LENGTH_SHORT else Toast.LENGTH_LONG)
@@ -98,6 +101,30 @@ fun AppCompatActivity.showError(ce: CommonError, onClose: (() -> Unit)? = null) 
 }
 
 fun AppCompatActivity.initAsRootForSnackbar(view: View) = SnackBarHelper.initRootView(view)
+
+fun Fragment.changeValueDialog(title:String, oldValue: String, onChange: ((newVal: String) -> Unit)){
+    val dialogBuilder: AlertDialog = AlertDialog.Builder(requireContext()).create()
+    val inflater: LayoutInflater = this.layoutInflater
+    val dialogView: View = inflater.inflate(R.layout.dialog_change_value, null)
+
+    val labelTextView = dialogView.findViewById<TextView>(R.id.dialog_change_value_textView)
+    val editText = dialogView.findViewById<View>(R.id.dialog_change_value_editText) as EditText
+    editText.setText(oldValue)
+    val submitButton: Button =
+        dialogView.findViewById<View>(R.id.dialog_change_value_buttonSubmit) as Button
+    val cancelButton: Button =
+        dialogView.findViewById<View>(R.id.dialog_change_value_buttonCancel) as Button
+
+    labelTextView.text = title
+    cancelButton.setOnClickListener(View.OnClickListener { dialogBuilder.dismiss() })
+    submitButton.setOnClickListener(View.OnClickListener {
+        dialogBuilder.dismiss()
+        onChange.invoke(editText.text.toString())
+    })
+
+    dialogBuilder.setView(dialogView)
+    dialogBuilder.show()
+}
 
 fun ValidationResult.toLanguagedString(context: Context): String {
     when (type) {

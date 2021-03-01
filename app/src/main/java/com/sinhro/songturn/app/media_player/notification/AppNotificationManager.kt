@@ -111,7 +111,7 @@ class AppNotificationManager : IAppNotificationManager {
 
         notificationBuilder.setChannelId(NOTIFICATION_CHANNEL_ID)
 
-        val closeAudioIntent = Intent(Broadcast_CLOSE_AUDIO)
+        val closeAudioIntent = Intent(Broadcast_CLOSE_PLAYER)
         val onDismissPendingIntent =
             PendingIntent.getBroadcast(context, 0, closeAudioIntent, 0)
 
@@ -147,9 +147,7 @@ class AppNotificationManager : IAppNotificationManager {
         val notificationManager: NotificationManager =
             context.getSystemService(Service.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.cancel(NOTIFICATION_ID)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            notificationManager.deleteNotificationChannel(NOTIFICATION_CHANNEL_ID)
-        }
+        notificationManager.deleteNotificationChannel(NOTIFICATION_CHANNEL_ID)
     }
 
     private fun playbackAction(actionNumber: Int): PendingIntent? {

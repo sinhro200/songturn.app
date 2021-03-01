@@ -112,4 +112,8 @@
     <string name="user_out_of_listen_mode">Вы вышли из режима прослушивания</string>
     <string name="cant_out_of_listen_mode">Не удалось выйти из режима прослушивания</string>
     <string name="playlist_already_has_listener">В комнате уже есть прослушивающий.</string>
+    <string name="cancel">Отмена</string>
+    <string name="change">Изменить</string>
+    <string name="settings_dialog_change_nickname_label">Изменить имя пользователя</string>
+    <string name="settings_dialog_change_login_label">Изменить логин</string>
 </resources>

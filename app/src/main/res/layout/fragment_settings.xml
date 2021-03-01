@@ -56,6 +56,7 @@
         style="@style/settingsButtons"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/settings_ripple_effect"
 
         app:layout_constraintTop_toBottomOf="@+id/settings_text_account">
 

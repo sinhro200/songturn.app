@@ -6,7 +6,9 @@ import android.view.MenuItem
 import androidx.fragment.app.activityViewModels
 import com.sinhro.songturn.app.R
 import com.sinhro.songturn.app.ui.activities.MainActivity
+import com.sinhro.songturn.app.utils.changeValueDialog
 import com.sinhro.songturn.app.view_models.UserInfoViewModel
+import com.sinhro.songturn.rest.model.RegisterUserInfo
 import kotlinx.android.synthetic.main.fragment_settings.*
 
 class SettingsFragment : DisabledDrawerFragment(R.layout.fragment_settings) {
@@ -23,18 +25,26 @@ class SettingsFragment : DisabledDrawerFragment(R.layout.fragment_settings) {
 
     fun initFunctionality() {
         settings_btn_nickname.setOnClickListener {
-//            userInfoViewModel.changeUser(RegisterUserInfo(nickname = ))
+            changeValueDialog(
+                getString(R.string.settings_dialog_change_nickname_label),
+                settings_nickname.text.toString()
+            ) {
+                if (it != settings_nickname.text.toString())
+                    userInfoViewModel.changeUser(RegisterUserInfo(nickname = it))
+                        .withErrorCollectorViewModel()
+                        .run()
+            }
         }
     }
 
-    fun initFields(){
-        userInfoViewModel.userLiveData.observe(this,{
+    fun initFields() {
+        userInfoViewModel.userLiveData.observe(this, {
             settings_nickname.text = it.nickname
             settings_login.text = it.login
-            settings_email.text = if (it.isDemo) getString(R.string.auth_login_demo_account_tab_title) else it.email
+            settings_email.text =
+                if (it.isDemo) getString(R.string.auth_login_demo_account_tab_title) else it.email
             settings_user_nickname.text = it.nickname
         })
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

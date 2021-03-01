@@ -20,7 +20,7 @@ class AppMusicPlayer :
     var mediaPlayer: MediaPlayer? = null
 
     private var resumePosition: Int = 0
-    private var onCompletionCallback: (() -> Unit)? = null
+    var onCompletionCallback: (() -> Unit)? = null
 
     val playing: Boolean
         get() = mediaPlayer?.isPlaying ?: false
@@ -53,10 +53,6 @@ class AppMusicPlayer :
         }
     }
 
-    fun setOnComplete(onCompletionCallback: (() -> Unit)? = null) {
-        this.onCompletionCallback = onCompletionCallback
-    }
-
     /**
      * reset()
      * ...
@@ -86,10 +82,11 @@ class AppMusicPlayer :
         }*/
     }
 
-    fun prepareAndPlay() {
+    fun prepareAndPlay(whenPlay: (() -> Unit)?=null) {
         mediaPlayer?.prepareAsync()
         mediaPlayer?.setOnPreparedListener {
             playMedia()
+            whenPlay?.invoke()
         }
     }
 
@@ -98,7 +95,7 @@ class AppMusicPlayer :
         Log.i("LifecycleMediaPlayer", "playMedia")
         mediaPlayer?.let {
             if (!it.isPlaying)
-                mediaPlayer?.start()
+                it.start()
         }
     }
 
@@ -130,7 +127,7 @@ class AppMusicPlayer :
     }
 
     fun resumeMedia() {
-        mediaPlayer?.let {mp->
+        mediaPlayer?.let { mp ->
             if (!mp.isPlaying) {
                 mp.seekTo(resumePosition)
                 mp.start()

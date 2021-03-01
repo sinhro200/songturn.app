@@ -1,10 +1,7 @@
 package com.sinhro.songturn.app.media_player
 
 import android.app.*
-import android.content.BroadcastReceiver
-import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
 import android.media.AudioManager
 import android.os.*
 import android.util.Log
@@ -48,7 +45,9 @@ class MediaPlayerServiceV3 : Service(),
                 "set song to ${activeAudio.toString()} and prepare with play"
             )
             mAppPlayer.setDataSource(it)
-            mAppPlayer.prepareAndPlay()
+            mAppPlayer.prepareAndPlay() {
+                mIAppNotificationManager.notify(PlaybackStatus.PLAYING)
+            }
         }
     }
 
@@ -69,22 +68,22 @@ class MediaPlayerServiceV3 : Service(),
                 if (!mAppPlayer.initialized) {
                     initMPlayer()
                 } else if (!mAppPlayer.playing) {
-                    mAppPlayer.playMedia()
-                    mIAppNotificationManager.notify(PlaybackStatus.PLAYING)
+                    playPlayer()
                 }
                 mAppPlayer.becomeNormal()
             }
             AudioManager.AUDIOFOCUS_LOSS -> {
                 // Lost focus for an unbounded amount of time: stop playback and release media player
-                mAppPlayer.stopMedia()
-                mAppPlayer.release()
+                pausePlayer()
+//                stopPlayer()
+//                mAppPlayer.release()
             }
             AudioManager.AUDIOFOCUS_LOSS_TRANSIENT ->
                 // Lost focus for a short time, but we have to stop
                 // playback. We don't release the media player because playback
                 // is likely to resume
                 if (mAppPlayer.playing)
-                    mAppPlayer.pauseMedia()
+                    pausePlayer()
             AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK ->
                 // Lost focus for a short time, but it's ok to keep playing
                 // at an attenuated level
@@ -97,7 +96,8 @@ class MediaPlayerServiceV3 : Service(),
         super.onCreate()
 
         mAppPlayer = AppMusicPlayer().also {
-            it.setOnComplete {
+
+            it.onCompletionCallback = {
                 val successfullyInvoked =
                     ApplicationData.onCompleteInPlayerServiceCallback.invoke()
                 if (!successfullyInvoked) {
@@ -116,7 +116,7 @@ class MediaPlayerServiceV3 : Service(),
                             songChanged()
                         }
                         .withOnErrorCallback {
-                            mAppPlayer.stopMedia()
+                            stopPlayer()
                             this.stopSelf()
                         }
                         .run()
@@ -132,11 +132,11 @@ class MediaPlayerServiceV3 : Service(),
             it.init(this,
                 onIncomingCall = {
                     if (mAppPlayer.initialized)
-                        mAppPlayer.pauseMedia()
+                        pausePlayer()
                 },
                 onHangup = {
                     if (mAppPlayer.initialized) {
-                        mAppPlayer.resumeMedia()
+                        resumePlayer()
                     }
                 })
         }
@@ -172,35 +172,46 @@ class MediaPlayerServiceV3 : Service(),
 
                     })
                 .addReceiver(Broadcast_PAUSE_RESUME_AUDIO,
-                    {c,i->
+                    { c, i ->
                         if (mAppPlayer.playing) {
-                        mAppPlayer.pauseMedia()
-                        mIAppNotificationManager.notify(PlaybackStatus.PAUSED)
-                    } else {
-                        mAppPlayer.playMedia()
-                        mIAppNotificationManager.notify(PlaybackStatus.PLAYING)
-                    }
+                            pausePlayer()
+                        } else {
+                            resumePlayer()
+                        }
                     })
-                .addReceiver(Broadcast_CLOSE_AUDIO,
-                    {c,i->
+                .addReceiver(Broadcast_CLOSE_PLAYER,
+                    { c, i ->
                         Log.d(
                             this@MediaPlayerServiceV3::class.java.simpleName,
                             "close audio intent"
                         )
-                        mIAppNotificationManager.removeNotification()
-                        mAppPlayer.stopMedia()
+                        stopPlayer()
+                        mAppPlayer.release()
                         this@MediaPlayerServiceV3.stopSelf()
                     })
-
-
         }
 
         mAppBroadcastReceiversManager.registerReceivers(this)
     }
 
+    fun resumePlayer() {
+        mAppPlayer.resumeMedia()
+        mIAppNotificationManager.notify(PlaybackStatus.PLAYING)
+    }
+
     fun pausePlayer() {
         mAppPlayer.pauseMedia()
         mIAppNotificationManager.notify(PlaybackStatus.PAUSED)
+    }
+
+    fun stopPlayer(){
+        mAppPlayer.stopMedia()
+        mIAppNotificationManager.removeNotification()
+    }
+
+    fun playPlayer(){
+        mAppPlayer.playMedia()
+        mIAppNotificationManager.notify(PlaybackStatus.PLAYING)
     }
 
     override fun onDestroy() {
@@ -223,13 +234,11 @@ class MediaPlayerServiceV3 : Service(),
         AppMediaSessionCallback.Builder()
             .withOnPlayCallback {
                 Log.d("Media session", "playing")
-                mAppPlayer.resumeMedia()
-                mIAppNotificationManager.notify(PlaybackStatus.PLAYING)
+                resumePlayer()
             }
             .withOnPauseCallback {
                 Log.d("Media session", "paused")
-                mAppPlayer.pauseMedia()
-                mIAppNotificationManager.notify(PlaybackStatus.PAUSED)
+                pausePlayer()
             }
 /*            .withOnStopCallback {
                 Log.d("Media session", "stopped")
