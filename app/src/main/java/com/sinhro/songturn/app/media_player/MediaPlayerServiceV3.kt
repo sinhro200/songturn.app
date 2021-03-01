@@ -26,6 +26,7 @@ class MediaPlayerServiceV3 : Service(),
     private lateinit var mAppAudioFocusManager: AppAudioFocusRequestManager
     private lateinit var mIncomingCallsHandler: AppHandlerIncomingCalls
     private lateinit var mIAppNotificationManager: IAppNotificationManager
+    private lateinit var mAppBroadcastReceiversManager: AppBroadcastReceiversManager
 
     private val iBinder: IBinder = LocalBinder()
 
@@ -69,6 +70,7 @@ class MediaPlayerServiceV3 : Service(),
                     initMPlayer()
                 } else if (!mAppPlayer.playing) {
                     mAppPlayer.playMedia()
+                    mIAppNotificationManager.notify(PlaybackStatus.PLAYING)
                 }
                 mAppPlayer.becomeNormal()
             }
@@ -89,82 +91,6 @@ class MediaPlayerServiceV3 : Service(),
                 if (mAppPlayer.playing)
                     mAppPlayer.becomeQuiet()
         }
-    }
-
-    //Becoming noisy
-    private val becomingNoisyReceiver: BroadcastReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context, intent: Intent) {
-            //pause audio on ACTION_AUDIO_BECOMING_NOISY
-            mAppPlayer.pauseMedia()
-            mIAppNotificationManager.notify(PlaybackStatus.PAUSED)
-        }
-    }
-
-    private fun registerBecomingNoisyReceiver() {
-        //register after getting audio focus
-        val intentFilter = IntentFilter(AudioManager.ACTION_AUDIO_BECOMING_NOISY)
-        registerReceiver(becomingNoisyReceiver, intentFilter)
-    }
-
-    private val playNewAudio: BroadcastReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context, intent: Intent) {
-
-            if (ApplicationData.songCurrent != null)
-                activeAudio = ApplicationData.songCurrent
-            else
-                stopSelf()
-
-
-            //A PLAY_NEW_AUDIO action received
-            //reset mediaPlayer to play the new Audio
-            mAppPlayer.stopMedia()
-            mAppPlayer.reset()
-            songChanged()
-//            initMPlayer()
-
-            mIAppNotificationManager.notify(PlaybackStatus.PLAYING)
-        }
-    }
-
-    private fun register_playNewAudio() {
-        //Register playNewMedia receiver
-        val filter = IntentFilter(Broadcast_PLAY_NEW_AUDIO)
-        registerReceiver(playNewAudio, filter)
-    }
-
-    private val pauseResumeAudio: BroadcastReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context, intent: Intent) {
-            if (mAppPlayer.playing) {
-                this@MediaPlayerServiceV3.mAppPlayer.pauseMedia()
-                mIAppNotificationManager.notify(PlaybackStatus.PAUSED)
-            }else{
-                this@MediaPlayerServiceV3.mAppPlayer.playMedia()
-                mIAppNotificationManager.notify(PlaybackStatus.PLAYING)
-            }
-        }
-    }
-
-    private fun register_pauseResumeAudio() {
-        //Register playNewMedia receiver
-        val filter = IntentFilter(Broadcast_PAUSE_RESUME_AUDIO)
-        registerReceiver(pauseResumeAudio, filter)
-    }
-
-    private val onCloseAudioReceiver: BroadcastReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context, intent: Intent) {
-            Log.d(
-                this@MediaPlayerServiceV3::class.java.simpleName,
-                "close audio intent"
-            )
-            mIAppNotificationManager.removeNotification()
-            mAppPlayer.stopMedia()
-            this@MediaPlayerServiceV3.stopSelf()
-        }
-    }
-
-    private fun registerOnCloseAudioReceiver() {
-        val intentFilter = IntentFilter(Broadcast_CLOSE_AUDIO)
-        registerReceiver(onCloseAudioReceiver, intentFilter)
     }
 
     override fun onCreate() {
@@ -215,27 +141,66 @@ class MediaPlayerServiceV3 : Service(),
                 })
         }
 
-        /*mAppNotificationManagerLegacy = AppNotificationManager().also {
-            it.init(this)
-        }*/
         mIAppNotificationManager =
             AppNotificationManagerFactory.buildNotificationManager().also {
                 it.init(this)
             }
 
-        //ACTION_AUDIO_BECOMING_NOISY
-        // -- change in audio outputs
-        // -- BroadcastReceiver
-        registerBecomingNoisyReceiver()
+        mAppBroadcastReceiversManager = AppBroadcastReceiversManager().also {
+            it.addReceiver(
+                AudioManager.ACTION_AUDIO_BECOMING_NOISY,
+                { c, i ->
+                    pausePlayer()
+                })
+                .addReceiver(
+                    Broadcast_PLAY_NEW_AUDIO,
+                    { c, i ->
+                        if (ApplicationData.songCurrent != null)
+                            activeAudio = ApplicationData.songCurrent
+                        else
+                            stopSelf()
 
-        //Listen for new Audio to play
-        // -- BroadcastReceiver
-        register_playNewAudio()
 
-        register_pauseResumeAudio()
+                        //A PLAY_NEW_AUDIO action received
+                        //reset mediaPlayer to play the new Audio
+                        mAppPlayer.stopMedia()
+                        mAppPlayer.reset()
+                        songChanged()
+//            initMPlayer()
 
-        //Listen for closing notification
-        registerOnCloseAudioReceiver()
+                        mIAppNotificationManager.notify(PlaybackStatus.PLAYING)
+
+                    })
+                .addReceiver(Broadcast_PAUSE_RESUME_AUDIO,
+                    {c,i->
+                        if (mAppPlayer.playing) {
+                        mAppPlayer.pauseMedia()
+                        mIAppNotificationManager.notify(PlaybackStatus.PAUSED)
+                    } else {
+                        mAppPlayer.playMedia()
+                        mIAppNotificationManager.notify(PlaybackStatus.PLAYING)
+                    }
+                    })
+                .addReceiver(Broadcast_CLOSE_AUDIO,
+                    {c,i->
+                        Log.d(
+                            this@MediaPlayerServiceV3::class.java.simpleName,
+                            "close audio intent"
+                        )
+                        mIAppNotificationManager.removeNotification()
+                        mAppPlayer.stopMedia()
+                        this@MediaPlayerServiceV3.stopSelf()
+                    })
+
+
+        }
+
+        mAppBroadcastReceiversManager.registerReceivers(this)
+    }
+
+    fun pausePlayer() {
+        mAppPlayer.pauseMedia()
+        mIAppNotificationManager.notify(PlaybackStatus.PAUSED)
     }
 
     override fun onDestroy() {
@@ -251,11 +216,7 @@ class MediaPlayerServiceV3 : Service(),
 
         mIAppNotificationManager.removeNotification()
 
-        //unregister BroadcastReceivers
-        unregisterReceiver(becomingNoisyReceiver)
-        unregisterReceiver(playNewAudio)
-        unregisterReceiver(pauseResumeAudio)
-        unregisterReceiver(onCloseAudioReceiver)
+        mAppBroadcastReceiversManager.unregisterReceivers(this)
     }
 
     private val appMediaSessionCallback: AppMediaSessionCallback =
@@ -270,23 +231,23 @@ class MediaPlayerServiceV3 : Service(),
                 mAppPlayer.pauseMedia()
                 mIAppNotificationManager.notify(PlaybackStatus.PAUSED)
             }
-//            .withOnStopCallback {
-//                Log.d("Media session", "stopped")
-//                mIAppNotificationManager.removeNotification()
-//                stopSelf()
-//            }
-//            .withOnSkipToNextCallback {
-//                Log.d("Media session","skippedToNext")
-//                skipToNext()
-//                mMediaSessionHelper?.updateSongMetadata(activeAudio)
-//                mAppNotificationManagerImpl.notify(PlaybackStatus.PLAYING)
-//            }
-//            .withOnSkipToPreviousCallback  {
-//                Log.d("Media session","skippedToPrevious")
-//                skipToPrevious()
-//                mMediaSessionHelper?.updateSongMetadata(activeAudio)
-//                mAppNotificationManagerImpl.notify(PlaybackStatus.PLAYING)
-//            }
+/*            .withOnStopCallback {
+                Log.d("Media session", "stopped")
+                mIAppNotificationManager.removeNotification()
+                stopSelf()
+            }
+            .withOnSkipToNextCallback {
+                Log.d("Media session","skippedToNext")
+                skipToNext()
+                mMediaSessionHelper?.updateSongMetadata(activeAudio)
+                mIAppNotificationManager.notify(PlaybackStatus.PLAYING)
+            }
+            .withOnSkipToPreviousCallback  {
+                Log.d("Media session","skippedToPrevious")
+                skipToPrevious()
+                mMediaSessionHelper?.updateSongMetadata(activeAudio)
+                mIAppNotificationManager.notify(PlaybackStatus.PLAYING)
+            }*/
             .build()
 
 
@@ -304,11 +265,8 @@ class MediaPlayerServiceV3 : Service(),
 
     private fun skipToNext() {
 //        if (audioIndex === audioList.size() - 1) {
-//            //if last in playlist
-//            audioIndex = 0
 //            activeAudio = audioList.get(audioIndex)
 //        } else {
-//            //get next in playlist
 //            activeAudio = audioList.get(++audioIndex)
 //        }
 
@@ -321,9 +279,6 @@ class MediaPlayerServiceV3 : Service(),
 
     private fun skipToPrevious() {
 //        if (audioIndex === 0) {
-//            //if first in playlist
-//            //set index to the last of audioList
-//            audioIndex = audioList.size() - 1
 //            activeAudio = audioList.get(audioIndex)
 //        } else {
 //            //get previous in playlist
@@ -336,10 +291,10 @@ class MediaPlayerServiceV3 : Service(),
         songChanged()
     }
 
+    //When called startService() from activity
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         try {
             if (ApplicationData.songCurrent != null) {
-                //index is in a valid range
                 activeAudio = ApplicationData.songCurrent
             } else {
                 stopSelf()
