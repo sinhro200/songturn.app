@@ -28,14 +28,3 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
-
-
-/*
-    ### {1}
-  a bug in Android Gradle Plugin.
-  Long story short AGP generates a few the same wrapper classes
-  in different DEX files that blow Dalvik/ART on old Android versions.
-  And the problem was only on debug build because R8/ProGuard deduplicates
-  that classes in release builds.
-    https://stackoverflow.com/questions/63688655/android-gradle-build-plugin-4-0-0-r8-desugaring-not-working-on-api-19
- */

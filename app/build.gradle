@@ -11,12 +11,25 @@ android {
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
-        versionName "1.0.0 release"
+        versionName "1.0.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         vectorDrawables.useSupportLibrary = true
 
+//        setProperty("archivesBaseName", "songturn_${defaultConfig.versionName}")
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def project = "songturn"
+            def SEP = "_"
+            def version = variant.versionName
+
+            def newApkName = project + SEP + version + ".apk"
+
+            outputFileName = new File(newApkName)
+        }
     }
 
     compileOptions {
@@ -30,6 +43,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
         }
     }
 
