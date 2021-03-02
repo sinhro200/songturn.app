@@ -2,6 +2,7 @@ package com.sinhro.songturn.app.ui.fragments
 
 import androidx.fragment.app.activityViewModels
 import com.sinhro.songturn.app.R
+import com.sinhro.songturn.app.model.ApplicationData
 import com.sinhro.songturn.app.ui.objects.AppLengthTextWatcher
 import com.sinhro.songturn.app.ui.objects.ValidatorProvider
 import com.sinhro.songturn.app.utils.SetErrorHelpers
@@ -39,6 +40,10 @@ class CreateRoomFragment : DisabledDrawerFragment(R.layout.fragment_create_room)
                 MAX_LENGTH_ROOM_TITLE
             )
         )
+        fragment_create_room_room_title_extendedEditText.setText(
+            getString(R.string.room_,ApplicationData.userInfo?.nickname)
+        )
+
 
         fragment_create_room_accept_button.setOnClickListener { createRoomButtonClicked() }
     }

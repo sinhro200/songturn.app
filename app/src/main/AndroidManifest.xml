@@ -28,19 +28,24 @@
                 <action android:name="android.intent.action.MEDIA_BUTTON" />
             </intent-filter>
         </service>
-        <activity android:name=".ui.activities.SplashActivity">
+        <activity android:name=".ui.activities.SplashActivity"
+            android:screenOrientation="portrait"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activities.MainActivity" />
+        <activity android:name=".ui.activities.MainActivity"
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".ui.activities.AuthActivity"
             android:windowSoftInputMode="stateHidden|adjustPan"
-             />
-        <activity android:name=".ui.activities.OrderSongActivity">
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.activities.OrderSongActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
                 <category android:name="android.intent.category.DEFAULT" />
