@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.sinhro.musicord.storage.Storage
 import com.sinhro.songturn.app.R
+import com.sinhro.songturn.app.api.RestErrorHandler
 import com.sinhro.songturn.app.databinding.ActivityMainBinding
 import com.sinhro.songturn.app.media_player.Broadcast_PAUSE_RESUME_AUDIO
 import com.sinhro.songturn.app.media_player.Broadcast_PLAY_NEW_AUDIO
@@ -46,12 +47,14 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(mBinding.root)
         ApplicationData.initStorage(Storage.getInstance(this))
-    }
 
-    override fun onStart() {
-        super.onStart()
         initFields()
         initFunctionality()
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        supportFragmentManager.popBackStack()
     }
 
     private fun initFunctionality() {
@@ -78,7 +81,6 @@ class MainActivity : AppCompatActivity() {
             })
 
 
-
             if (ApplicationData.roomInfo == null)
                 replaceFragment(EnterCreateRoomFragment())
             else
@@ -94,6 +96,8 @@ class MainActivity : AppCompatActivity() {
         ErrorViewModel.initGlobal(
             viewModels<ErrorViewModel>().value
         )
+
+        RestErrorHandler.activity = this
     }
 
     fun logout() {

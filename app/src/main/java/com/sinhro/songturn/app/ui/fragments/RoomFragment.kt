@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.sinhro.songturn.app.R
 import com.sinhro.songturn.app.model.ApplicationData
+import com.sinhro.songturn.app.model.ErrorCollectorProvider
 import com.sinhro.songturn.app.ui.activities.MainActivity
 import com.sinhro.songturn.app.ui.objects.AppSongsRecyclerViewAdapter
 import com.sinhro.songturn.app.utils.hideKeyboard
@@ -19,7 +20,6 @@ import com.sinhro.songturn.app.view_models.PlaylistViewModel
 import com.sinhro.songturn.app.view_models.RoomViewModel
 import com.sinhro.songturn.rest.ErrorCodes
 import kotlinx.android.synthetic.main.fragment_room.*
-import java.util.*
 
 
 class RoomFragment : Fragment(R.layout.fragment_room) {
@@ -152,15 +152,21 @@ class RoomFragment : Fragment(R.layout.fragment_room) {
         roomViewModel.updateFullRoomInfo()
             .withOnSuccessCallback {
                 playlistViewModel.updatePlaylistSongsVoted()
+                    //todo when you leave the room and press back you will get here
+                    // with error RoomNotFound. But you shouldn't back to this fragment.
+                    .withErrorCollector {
+                        if (it.errorCode != ErrorCodes.ROOM_NOT_FOUND)
+                            ErrorCollectorProvider.collectorForErrorViewModel.invoke(it)
+                    }
                     .run()
             }
-            .withOnErrorCallback {
-                if (it.errorCode == ErrorCodes.ROOM_NOT_FOUND || it.errorCode == ErrorCodes.USER_NOT_IN_ROOM) {
-                    roomViewModel.roomLiveData.postValue(null)
-                    ApplicationData.playlistInfo = null
-                    replaceFragment(EnterCreateRoomFragment())
-                }
-            }
+//            .withOnErrorCallback {
+//                if (it.errorCode == ErrorCodes.ROOM_NOT_FOUND || it.errorCode == ErrorCodes.USER_NOT_IN_ROOM) {
+//                    roomViewModel.roomLiveData.postValue(null)
+//                    ApplicationData.playlistInfo = null
+//                    replaceFragment(EnterCreateRoomFragment())
+//                }
+//            }
     }
 
     fun initFunctionality() {
@@ -208,6 +214,11 @@ class RoomFragment : Fragment(R.layout.fragment_room) {
             R.id.room_menu_listen -> {
                 changeListenMode()
             }
+            //todo you can still go to room fragment pressing back, need to be fixed
+            R.id.room_menu_leave -> {
+                roomViewModel.roomLiveData.postValue(null)
+                replaceFragment(EnterCreateRoomFragment())
+            }
         }
         return true
     }
@@ -230,8 +241,7 @@ class RoomFragment : Fragment(R.layout.fragment_room) {
                 if (!ApplicationData.isInListenMode) {
                     showToast(getString(R.string.user_out_of_listen_mode))
                     (activity as MainActivity).closeAudio()
-                }
-                else
+                } else
                     showToast(getString(R.string.cant_out_of_listen_mode))
             }
             .withOnErrorCallback {

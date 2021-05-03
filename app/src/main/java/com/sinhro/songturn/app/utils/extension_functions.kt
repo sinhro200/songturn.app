@@ -1,5 +1,6 @@
 package com.sinhro.songturn.app.utils
 
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.os.Looper
@@ -36,9 +37,12 @@ fun AppCompatActivity.replaceActivity(activity: AppCompatActivity) {
     this.finish()
 }
 
-fun AppCompatActivity.replaceFragment(fragment: Fragment) {
+fun AppCompatActivity.replaceFragment(fragment: Fragment, addToBackStack: Boolean = true) {
     supportFragmentManager.beginTransaction()
-        .addToBackStack(null)
+        .also {
+            if (addToBackStack)
+                it.addToBackStack(null)
+        }
         .replace(R.id.dataContainer, fragment)
         .commit()
     fragment.view?.let { hideKeyboard(it) }
@@ -53,10 +57,15 @@ fun Fragment.hideKeyboard() {
         hideKeyboardFrom(context!!, view!!)
 }
 
-fun Fragment.replaceFragment(fragment: Fragment) {
+fun Fragment.replaceFragment(fragment: Fragment, addToBackStack: Boolean = true) {
     parentFragmentManager
         .beginTransaction()
-        .addToBackStack(null)
+        .also {
+            if (addToBackStack)
+                it.addToBackStack(null)
+            else
+                it.remove(this)
+        }
         .replace(R.id.dataContainer, fragment)
         .commit()
 }
@@ -102,7 +111,11 @@ fun AppCompatActivity.showError(ce: CommonError, onClose: (() -> Unit)? = null) 
 
 fun AppCompatActivity.initAsRootForSnackbar(view: View) = SnackBarHelper.initRootView(view)
 
-fun Fragment.changeValueDialog(title:String, oldValue: String, onChange: ((newVal: String) -> Unit)){
+fun Fragment.changeValueDialog(
+    title: String,
+    oldValue: String,
+    onChange: ((newVal: String) -> Unit)
+) {
     val dialogBuilder: AlertDialog = AlertDialog.Builder(requireContext()).create()
     val inflater: LayoutInflater = this.layoutInflater
     val dialogView: View = inflater.inflate(R.layout.dialog_change_value, null)
@@ -167,4 +180,25 @@ fun CommonError.toPrettyString(): String {
             append("\n").append(this@toPrettyString.extra)
         return this.toString()
     }
+}
+
+fun ClipboardManager.getClipboardText(context: Context): String? {
+    if (hasPrimaryClip()) {
+        val clip = primaryClip
+        if (clip != null && clip.itemCount > 0) {
+            val clipboardText = clip.getItemAt(0).coerceToText(context)
+            if (clipboardText != null)
+                return clipboardText.toString()
+//            else{
+//                Log.i(ClipboardManager::class.simpleName, "clipboard text null")
+//            }
+        }
+//        else{
+//            Log.i(ClipboardManager::class.simpleName, "primary clip null or item count = 0")
+//        }
+    }
+//    else{
+//        Log.i(ClipboardManager::class.simpleName, "has not primary clip")
+//    }
+    return null
 }

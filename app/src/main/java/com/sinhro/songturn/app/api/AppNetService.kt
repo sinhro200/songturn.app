@@ -57,7 +57,16 @@ class AppNetService<ReqData, RespBody> private constructor(
                         }
                     }
                 },
-                { onError(CommonError(ErrorCodes.NET_CONNECTION_ERR, it.message.toString())) },
+                {
+                    onError(
+                        CommonError(
+                            ErrorCodes.NET_CONNECTION_ERR,
+                            it.message.toString(),
+                            it.localizedMessage,
+                            it.stackTraceToString()
+                        )
+                    )
+                },
                 {
                     disposable?.dispose()
                     onCompleteCallback?.invoke()
@@ -74,8 +83,7 @@ class AppNetService<ReqData, RespBody> private constructor(
         try {
             val str = body.string()
             val commonError = om.readValue<CommonError>(str)
-            //TODO realize RestErrorHandlerService, or remove next line
-            //RestErrorHandlerService.handleError(it)
+            RestErrorHandler.handle(commonError)
             onError(commonError)
         } catch (ex: Exception) {
             onError(

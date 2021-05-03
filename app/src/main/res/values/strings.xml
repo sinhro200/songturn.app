@@ -106,6 +106,7 @@
     <string name="listening_mode_off">Отключён режим прослушивания</string>
     <string name="fragment_room_menu_listen_default">Прослушивать</string>
     <string name="fragment_room_menu_info">Информация о комнате</string>
+    <string name="fragment_room_menu_exit">Выйти из комнаты</string>
     <string name="fragment_room_menu_listen_wanna">Прослушивать</string>
     <string name="fragment_room_menu_listen_finish">Закончить прослушивание</string>
     <string name="user_in_listen_mode">Вы в режиме прослушивания</string>
@@ -116,4 +117,6 @@
     <string name="change">Изменить</string>
     <string name="settings_dialog_change_nickname_label">Изменить имя пользователя</string>
     <string name="settings_dialog_change_login_label">Изменить логин</string>
+    <string name="room_">Комната_%1$s</string>
+
 </resources>

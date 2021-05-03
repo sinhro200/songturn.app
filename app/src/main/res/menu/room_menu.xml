@@ -3,13 +3,18 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     >
     <item
+        android:id="@+id/room_menu_info"
+        android:icon="@drawable/ic_info"
+        android:title="@string/fragment_room_menu_info"
+        />
+    <item
         android:id="@+id/room_menu_listen"
         android:icon="@drawable/ic_audio_listen"
         android:title="@string/fragment_room_menu_listen_default"
         />
     <item
-        android:id="@+id/room_menu_info"
-        android:icon="@drawable/ic_info"
-        android:title="@string/fragment_room_menu_info"
+        android:id="@+id/room_menu_leave"
+        android:icon="@drawable/ic_baseline_exit_to_app_24"
+        android:title="@string/fragment_room_menu_exit"
         />
 </menu>
