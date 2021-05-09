@@ -138,8 +138,16 @@ class AppSongsRecyclerViewAdapter(
         holderCustom.numberTextView.text = (position + 1).toString()
         holderCustom.titleTextView.text = songInfoVoted.songInfo.title
         holderCustom.artistTextView.text = songInfoVoted.songInfo.artist
+        val durSecs: String =
+            (songInfoVoted.songInfo.durationSeconds % 60).let {
+                return@let if (it == 0)
+                    "00"
+                else
+                    it.toString()
+            }
+
         holderCustom.durationTextView.text =
-            "${(songInfoVoted.songInfo.durationSeconds / 60)}:${(songInfoVoted.songInfo.durationSeconds % 60)}"
+            "${(songInfoVoted.songInfo.durationSeconds / 60)}:$durSecs"
         holderCustom.ownerTextView.text = if (
             ApplicationData.roomInfo?.roomSettings?.songOwnersVisible == true && songInfoVoted.songInfo.userId != null
         )
